@@ -1,0 +1,6 @@
+{
+    "baseUrl": "https://localhost:44374",
+    "userService": {
+            "getUsers": "/api/User/GetUsers"
+        }  
+}

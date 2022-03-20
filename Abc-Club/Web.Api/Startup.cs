@@ -13,6 +13,8 @@ namespace Web.Api
 {
     public class Startup
     {
+        private string _policy = "abcClubPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +32,15 @@ namespace Web.Api
 
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
 
+            services.AddCors(opt => {
+                    opt.AddPolicy(_policy, x =>
+                    {
+                        x.AllowAnyMethod();
+                        x.AllowAnyHeader();
+                        x.AllowAnyOrigin();
+                    });
+                }
+            );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,6 +59,8 @@ namespace Web.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(_policy);
 
             app.UseRouting();
 
