@@ -13,15 +13,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Data", "04 Data", "{4B9A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Shared", "05 Shared", "{BCE43CF7-1099-4880-B423-7C522503F4D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Api", "Web.Api\Web.Api.csproj", "{1474C97B-59C4-4992-A5EF-73F9E4C75854}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Api", "Web.Api\Web.Api.csproj", "{1474C97B-59C4-4992-A5EF-73F9E4C75854}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.UserContext", "Data.UserContext\Data.UserContext.csproj", "{BDB5AE38-A523-4CC5-BD08-88BC3DBB1060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.UserContext", "Data.UserContext\Data.UserContext.csproj", "{BDB5AE38-A523-4CC5-BD08-88BC3DBB1060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Models", "Shared.Models\Shared.Models.csproj", "{6BC0C33A-F0F0-410E-9304-8FE038CF0B97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Models", "Shared.Models\Shared.Models.csproj", "{6BC0C33A-F0F0-410E-9304-8FE038CF0B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Businesslogic.User", "Businesslogic.User\Businesslogic.User.csproj", "{04604FF7-47C2-4FA7-AB4E-79C9E6FDC290}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Businesslogic.User", "Businesslogic.User\Businesslogic.User.csproj", "{04604FF7-47C2-4FA7-AB4E-79C9E6FDC290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.UserService", "Service.UserService\Service.UserService.csproj", "{F966AD17-B758-4D7C-B852-9EEDD577A72E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.UserService", "Service.UserService\Service.UserService.csproj", "{F966AD17-B758-4D7C-B852-9EEDD577A72E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.AppData", "Data.AppData\Data.AppData.csproj", "{EE4109D1-57C3-46E9-A0CE-9283B8D5CE70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Enums", "Shared.Enums\Shared.Enums.csproj", "{DF4AC76D-E6B6-444D-97C8-E9418BA39E49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Businesslogic.Units", "Businesslogic.Units\Businesslogic.Units.csproj", "{98D4D5B4-2CFB-440C-A60C-782D0BD22FE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +55,18 @@ Global
 		{F966AD17-B758-4D7C-B852-9EEDD577A72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F966AD17-B758-4D7C-B852-9EEDD577A72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F966AD17-B758-4D7C-B852-9EEDD577A72E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE4109D1-57C3-46E9-A0CE-9283B8D5CE70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE4109D1-57C3-46E9-A0CE-9283B8D5CE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE4109D1-57C3-46E9-A0CE-9283B8D5CE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE4109D1-57C3-46E9-A0CE-9283B8D5CE70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF4AC76D-E6B6-444D-97C8-E9418BA39E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4AC76D-E6B6-444D-97C8-E9418BA39E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4AC76D-E6B6-444D-97C8-E9418BA39E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4AC76D-E6B6-444D-97C8-E9418BA39E49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D4D5B4-2CFB-440C-A60C-782D0BD22FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D4D5B4-2CFB-440C-A60C-782D0BD22FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D4D5B4-2CFB-440C-A60C-782D0BD22FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D4D5B4-2CFB-440C-A60C-782D0BD22FE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +77,9 @@ Global
 		{6BC0C33A-F0F0-410E-9304-8FE038CF0B97} = {BCE43CF7-1099-4880-B423-7C522503F4D0}
 		{04604FF7-47C2-4FA7-AB4E-79C9E6FDC290} = {E5558B4C-550A-4424-B7D2-D550C22BC887}
 		{F966AD17-B758-4D7C-B852-9EEDD577A72E} = {97FD8591-2DB2-4486-8EE0-F0E5C9D9D386}
+		{EE4109D1-57C3-46E9-A0CE-9283B8D5CE70} = {4B9A4678-85AB-4341-A707-07FF7645427D}
+		{DF4AC76D-E6B6-444D-97C8-E9418BA39E49} = {BCE43CF7-1099-4880-B423-7C522503F4D0}
+		{98D4D5B4-2CFB-440C-A60C-782D0BD22FE8} = {E5558B4C-550A-4424-B7D2-D550C22BC887}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F872ECAC-DA60-4899-91CB-609899CD0C02}
