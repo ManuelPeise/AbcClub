@@ -1,5 +1,8 @@
+using Businesslogic.Units;
+using Businesslogic.Units.Interfaces;
 using Businesslogic.User;
 using Businesslogic.User.Interfaces;
+using Data.AppData;
 using Data.UserContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +33,14 @@ namespace Web.Api
                 opt.UseMySQL(Configuration.GetConnectionString("userContext"));
             });
 
+            services.AddDbContext<AppDataContext>(opt =>
+            {
+                opt.UseMySQL(Configuration.GetConnectionString("appDataContext"));
+            });
+
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
+            services.AddScoped<UnitGenerator>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
 
             services.AddCors(opt => {
                     opt.AddPolicy(_policy, x =>
@@ -42,6 +52,7 @@ namespace Web.Api
                 }
             );
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web.Api", Version = "v1" });

@@ -15,8 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Businesslogic.Units\Businesslogic.Units.csproj" />
     <ProjectReference Include="..\Businesslogic.User\Businesslogic.User.csproj" />
+    <ProjectReference Include="..\Data.AppData\Data.AppData.csproj" />
     <ProjectReference Include="..\Data.UserContext\Data.UserContext.csproj" />
+    <ProjectReference Include="..\Service.UnitService\Service.UnitService.csproj" />
     <ProjectReference Include="..\Service.UserService\Service.UserService.csproj" />
   </ItemGroup>
 
