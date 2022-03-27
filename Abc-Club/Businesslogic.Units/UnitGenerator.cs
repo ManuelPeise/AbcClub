@@ -30,14 +30,39 @@ namespace Businesslogic.Units
             var startNumber = GetStartNumber(level);
 
             var numbers = GetNumbers(startNumber);
+            var generator = new Random();
+
+            var shuffeledNumbers = numbers.OrderBy(x => generator.Next()).ToList();
 
             return await Task.FromResult(new Unit
             {
                 UserId = userId,
                 Level = level,
                 UnitType = UnitTypeEnum.NumberChaos,
-                UnitContext = JsonConvert.SerializeObject(numbers)
+                UnitContext = new UnitContext
+                {
+                    Context = JsonConvert.SerializeObject(shuffeledNumbers),
+                    UnitSolution = JsonConvert.SerializeObject(numbers)
+                }
             });
+        }
+
+   
+
+        private List<int> GetShuffeledNumbers(List<int> numbers)
+        {
+            var shuffeledNumbers = new List<int>();
+            var generator = new Random();
+
+            while (numbers.Count > 0)
+            {
+                var positionToRemove = generator.Next(numbers.Count);
+                shuffeledNumbers.Add(numbers[positionToRemove]);
+
+                numbers.Remove(positionToRemove);
+            }
+
+            return shuffeledNumbers;
         }
 
         private List<int> GetNumbers(int startNumber)
@@ -45,12 +70,12 @@ namespace Businesslogic.Units
             var random = new Random();
             var numbers = new List<int>();
 
-            for(var i = startNumber; i < i + 10; i++)
+            for(var i = startNumber; i < startNumber + 10; i++)
             {
                 numbers.Add(i);
             }
 
-            return numbers.OrderBy(x => random.Next(x)).ToList();
+            return numbers;
         }
 
         private int GetStartNumber(LevelTypeEnum level)

@@ -54,6 +54,7 @@ namespace Businesslogic.Units
         {
             try
             {
+                var unitGenerator = _unitGenerator ?? new UnitGenerator();
                 return await _unitGenerator.GenerateUnit(unitType, levelType, userId);
             }
             catch(Exception exception)

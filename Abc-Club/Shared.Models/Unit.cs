@@ -2,6 +2,7 @@
 {
     public class Unit: UnitBase
     {
-        public string UnitContext { get; set; }
+        public UnitContext UnitContext { get; set; }
+
     }
 }

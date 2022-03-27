@@ -39,6 +39,7 @@ namespace Web.Api
             });
 
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
+            services.AddScoped<UnitGenerator>();
             services.AddScoped<IUnitRepository, UnitRepository>();
 
             services.AddCors(opt => {
