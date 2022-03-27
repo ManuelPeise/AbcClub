@@ -1,43 +1,62 @@
-import { AppBar, Grid, makeStyles, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Grid, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { IAppState } from '../../interfaces/IAppState'
+import { useDispatch } from 'react-redux'
 import { IListItem } from '../../interfaces/IListItem'
 import { IUserData } from '../../interfaces/IUserData'
 import { setUserData } from '../../redux/storeAccessor'
 import DropDown from '../inputs/Dropdown'
+import {Menu} from '@material-ui/icons'
+import { Link } from 'react-router-dom'
 
 const styles = makeStyles({
     root:{
         display: 'flex',
         position: 'relative',
         height: 'auto',
-        maxHeight: '5rem'
+        maxHeight: '6rem'
     },
     container:{
         display: 'inerhit',
         alignContent: 'baseline',
         padding: '1rem'
     },
-    title:{
+    titleContainer:{
+        display: 'flex',
+        flexDirection: 'row',
         padding:'1rem'
+    },
+    link:{
+        textDecoration: 'none',
+        color:'white'
+    },
+    title:{
+        padding: '1rem'
     },
     dropDownContainer:{
         display:'flex',
         justifyContent: 'flex-end',
+    },
+    icon: {
+        width: '2rem',
+        height: '2rem',
+        color:'white',
+        '&:hover':{
+            color:'lightgray'
+        }
     }
 })
 
 interface IProps{
     userDataCollection: IUserData[]
+    userData: IUserData
+    toggleMenuOpen: () => void
 }
 
 const AbcClubAppBar: React.FC<IProps> = (props) =>{
 
-    const {userDataCollection} = props
+    const {userDataCollection, userData, toggleMenuOpen} = props
     const dispatch = useDispatch()
 
-    const selector = useSelector<IAppState, IUserData>(state => state.userData)?? {} as IUserData
     const classes = styles()
 
     const userItems = React.useMemo(() =>{
@@ -58,10 +77,10 @@ const AbcClubAppBar: React.FC<IProps> = (props) =>{
 
     const selectedItem = React.useMemo((): IListItem =>{
         return{
-            key: selector.id,
-            value: selector.username
+            key: userData.id,
+            value: userData.username
         }
-    },[selector.id, selector.username]) 
+    },[userData.id, userData.username]) 
 
     return(
         <AppBar className={classes.root} color='primary'>
@@ -70,12 +89,20 @@ const AbcClubAppBar: React.FC<IProps> = (props) =>{
                     className={classes.container}
                     container>
                     <Grid
-                        className={classes.title}
+                        className={classes.titleContainer}
                         item
                         xs = {6}>
-                        <Typography variant='h4'>
-                            Abc - Club
-                        </Typography>
+                        <Grid
+                            container>
+                            <IconButton onClick={toggleMenuOpen}>
+                                <Menu className = {classes.icon}/>
+                            </IconButton>
+                            <Link to = '/' className = {classes.link} >
+                                <Typography variant='h5' className={classes.title} >
+                                    Abc - Club
+                                </Typography>
+                            </Link>
+                        </Grid>
                     </Grid>
                     <Grid
                         className={classes.dropDownContainer}

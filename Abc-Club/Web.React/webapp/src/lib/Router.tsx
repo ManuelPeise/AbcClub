@@ -1,54 +1,11 @@
-import React, { StrictMode } from 'react'
-import { Routes, Route, RouteObject } from 'react-router-dom'
-import NotFound from '../pages/NotFound'
-import PageLayout from './PageLayout'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { getRoutes } from './routes'
+
 
 const AppRouter: React.FC = () => {
 
-    const routes = React.useMemo((): RouteObject[] =>{
-       return[
-            {
-                path: "/",
-                element: <PageLayout><div>Home</div></PageLayout>,
-                children: [
-                    {
-                        index: true,
-                        path:'/*',
-                        element: <PageLayout><NotFound path='/'/></PageLayout>
-                    }
-                ]
-            },
-            {
-                path: "/mathunits",
-                element: <div>Math</div>,
-                children: [
-                    {
-                        index: true,
-                        element: <PageLayout><NotFound path='/mathunits'/></PageLayout>
-                    },
-                    {
-                        path: "/mathunits/numberchaos",
-                        element: <div>Mathematik</div>
-                    }
-                ]
-            },
-            {
-                path: "/germanunits",
-                element: <div>German</div>,
-                children: [
-                    {
-                        index: true,
-                        element: <PageLayout><NotFound path='/germanunits'/></PageLayout>
-                    },
-                    {
-                        path: "/germanunits/test",
-                        element: <StrictMode><div>Deutsch</div></StrictMode>
-                    }
-                ]
-            }
-       ]
-       
-    },[])
+    const routes = getRoutes()
     
     const resolvedRoutes = React.useMemo(() =>{
         const resolvedRoutes = Array(0)
