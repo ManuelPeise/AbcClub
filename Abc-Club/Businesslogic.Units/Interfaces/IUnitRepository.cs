@@ -13,5 +13,7 @@ namespace Businesslogic.Units.Interfaces
         Task<List<UnitResult>> GetAllUnitResults(UnitTypeEnum unitType, LevelTypeEnum? levelType, int? userId);
 
         Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId);
+
+        Task<List<UnitStatistic>> GetStatistics(int userId);
     }
 }

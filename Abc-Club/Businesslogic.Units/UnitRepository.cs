@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Businesslogic.Units
 {
-    public class UnitRepository: IUnitRepository
+    public class UnitRepository : IUnitRepository
     {
         private readonly AppDataContext _appDataContext;
         private readonly UnitGenerator _unitGenerator;
@@ -42,7 +42,8 @@ namespace Businesslogic.Units
                 ).ToList());
 
 
-            }catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 return await Task.FromResult(new List<UnitResult>());
             }
@@ -57,7 +58,7 @@ namespace Businesslogic.Units
                 var unitGenerator = _unitGenerator ?? new UnitGenerator();
                 return await _unitGenerator.GenerateUnit(unitType, levelType, userId);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 return await Task.FromResult(new Unit
                 {
@@ -66,7 +67,7 @@ namespace Businesslogic.Units
                     UnitType = unitType
                 });
             }
-            
+
         }
 
         public async Task SaveUnitResult(UnitResult result)
@@ -75,14 +76,58 @@ namespace Businesslogic.Units
             {
                 _appDataContext.UnitResults.Add(result);
 
-                if(await _appDataContext.SaveChangesAsync() == 0)
+                if (await _appDataContext.SaveChangesAsync() == 0)
                 {
                     throw new Exception("Cound not save unit result");
                 }
 
-            }catch (Exception exeption)
+            }
+            catch (Exception exeption)
             {
 
+            }
+        }
+
+        public async Task<List<UnitStatistic>> GetStatistics(int userId)
+        {
+            var results = new List<UnitStatistic>();
+
+            var allResults = _appDataContext.UnitResults.Where(unit => unit.UserId == userId).ToList();
+
+            if (!allResults.Any())
+            {
+                return results;
+            }
+
+            results = (from res in allResults
+                       group res by res.UnitType into unitTypeGrp
+                       select new UnitStatistic
+                       {
+                           UnitType = unitTypeGrp.Key,
+                           PercentValue = GetCalculateValue(unitTypeGrp.Select(result => result), unitTypeGrp.Key),
+                           AllQuestions = unitTypeGrp.Sum(unit => unit.QuestionCount)
+                       })?.ToList();
+
+
+            return await Task.FromResult(results);
+        }
+
+        private decimal GetCalculateValue(IEnumerable<UnitResult> results, UnitTypeEnum unitType)
+        {
+            var allQuestions = results.Sum(res => res.QuestionCount);
+            var points = results.Sum(res => res.Points);
+
+            return (points * 100) / (allQuestions * GetPointsPerQuestion(unitType));
+
+        }
+
+        private int GetPointsPerQuestion(UnitTypeEnum unitType)
+        {
+            switch (unitType)
+            {
+                case UnitTypeEnum.NumberChaos:
+                    return 3;
+                default: return 0;
             }
         }
 

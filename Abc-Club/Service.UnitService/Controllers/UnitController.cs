@@ -2,10 +2,7 @@
 using Businesslogic.Units.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Service.UnitService.Controllers
@@ -31,6 +28,16 @@ namespace Service.UnitService.Controllers
                 return await repo.GenerateUnit(Shared.Enums.UnitTypeEnum.NumberChaos, Shared.Enums.LevelTypeEnum.Easy, 1);
             }
         }
+
+        [HttpGet(Name = "GetStatisics")]
+        public async Task<List<UnitStatistic>> GetStatisics(int userId)
+        {
+            using(var repo = _unitRepository)
+            {
+                return await repo.GetStatistics(userId);
+            }
+        }
+
 
         [HttpPost(Name = "SaveUnitResult")]
         public async Task SaveUnitResult([FromBody] UnitResult result)
