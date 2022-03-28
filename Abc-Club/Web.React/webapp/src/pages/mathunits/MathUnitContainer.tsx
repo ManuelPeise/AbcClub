@@ -1,6 +1,14 @@
-import { Grid } from '@material-ui/core'
+import { Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
-import ButtonGroup from '../../components/inputs/ButtonGroup'
+import PageTitleContainer from '../../components/pageTitle/PageTitleContainer'
+
+const styles = makeStyles({
+    mathUnitContainer:{
+        display: 'flex',
+        position:'relative',
+        width: '100vw'
+    }
+})
 
 interface IProps{
     title: string
@@ -8,20 +16,18 @@ interface IProps{
 
 const MathunitContainer: React.FC<IProps> = (props) =>{
 
-    const {title} = props
+    const {title, children} = props
+    const classes = styles()
 
     return(
         <Grid
-            container>
+            container
+            className={classes.mathUnitContainer}>
+            <PageTitleContainer title={title}/>
             <Grid
                 container>
-                {title}
+                {children}
             </Grid>
-            <Grid
-                container>
-                Content
-            </Grid>
-            <ButtonGroup/>
         </Grid>
     )
 }

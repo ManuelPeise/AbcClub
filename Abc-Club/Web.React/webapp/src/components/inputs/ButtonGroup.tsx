@@ -4,25 +4,33 @@ import React from 'react'
 const styles = makeStyles({
     btnGrpContainer:{
         display: 'flex',
-        position: 'relative'
+        position: 'relative',
+        padding:'2rem',
+        justifyContent: 'flex-end'
     }
 })
 
 interface IProps{
-
+    hasSaveBtn: boolean
+    saveBtnValue: string
+    hasCancelBtn: boolean
 }
 
 const ButtonGroup: React.FC<IProps> = (props) =>{
 
+    const {hasCancelBtn, hasSaveBtn, saveBtnValue} = props
     const classes = styles()
 
     return(
         <Grid
             container
             className={classes.btnGrpContainer}>
+            {hasCancelBtn &&(
             <Button>Abbrechen</Button>
-            <Button>Speichern</Button>
-            <Button>OK</Button>
+            )}
+            {hasSaveBtn &&(
+            <Button>{saveBtnValue}</Button>
+            )}
         </Grid>
     )
 }

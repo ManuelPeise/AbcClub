@@ -1,9 +1,9 @@
-import React, { StrictMode } from 'react'
+import { StrictMode } from 'react'
 import PageLayout from './PageLayout'
 import { RouteObject } from 'react-router'
 import NotFound from '../pages/NotFound'
 import { IMenuItem } from '../interfaces/IMenuItem'
-import MathunitContainer from '../pages/mathunits/MathUnitContainer'
+import NumberchaosDataservice from '../pages/mathunits/numberChaos/NumberchaosDataService'
 
 export const getRoutes = (): RouteObject[] =>{
     return[
@@ -29,11 +29,8 @@ export const getRoutes = (): RouteObject[] =>{
                  {
                      path: "/mathunits/numberchaos",
                      element: <StrictMode>
-                            	    <PageLayout><div>Mathematik</div>
-                                        <MathunitContainer
-                                            title='Zahlenchaos'>
-                                            
-                                        </MathunitContainer>    
+                            	    <PageLayout>
+                                        <NumberchaosDataservice/>   
                                     </PageLayout>
                                 </StrictMode>
                  }

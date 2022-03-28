@@ -21,7 +21,7 @@ namespace Service.UserService.Controllers
         }
 
         [HttpGet(Name = "GetUsers")]
-        public async Task<List<UserData>> GetUsers()
+        public async Task<List<UserDataModel>> GetUsers()
         {
             using (var repo = _userServiceRepo)
             {
@@ -30,7 +30,7 @@ namespace Service.UserService.Controllers
         }
 
         [HttpPost(Name = "AddUser")]
-        public async Task AddUser([FromBody] UserData userData)
+        public async Task AddUser([FromBody] UserDataModel userData)
         {
             using (var repo = _userServiceRepo)
             {

@@ -36,7 +36,7 @@ const PageLayout: React.FC<IProps> = (props) => {
     return(
         <Grid
             container
-            style={{height: '100vh', overflow: 'hidden'}}
+            style={{overflow: 'hidden'}}
             direction='row'
             justifyContent='center'>
             <Grid
