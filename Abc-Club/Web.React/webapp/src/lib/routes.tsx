@@ -3,6 +3,7 @@ import PageLayout from './PageLayout'
 import { RouteObject } from 'react-router'
 import NotFound from '../pages/NotFound'
 import { IMenuItem } from '../interfaces/IMenuItem'
+import MathunitContainer from '../pages/mathunits/MathUnitContainer'
 
 export const getRoutes = (): RouteObject[] =>{
     return[
@@ -27,7 +28,14 @@ export const getRoutes = (): RouteObject[] =>{
                  },
                  {
                      path: "/mathunits/numberchaos",
-                     element: <StrictMode><PageLayout><div>Mathematik</div></PageLayout></StrictMode>
+                     element: <StrictMode>
+                            	    <PageLayout><div>Mathematik</div>
+                                        <MathunitContainer
+                                            title='Zahlenchaos'>
+                                            
+                                        </MathunitContainer>    
+                                    </PageLayout>
+                                </StrictMode>
                  }
              ]
          },
