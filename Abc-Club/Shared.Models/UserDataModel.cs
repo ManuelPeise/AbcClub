@@ -2,7 +2,7 @@
 
 namespace Shared.Models
 {
-    public class UserData
+    public class UserDataModel
     {
         [Key]
         public int Id { get; set; }
