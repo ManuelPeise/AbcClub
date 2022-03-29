@@ -15,16 +15,116 @@ namespace Businesslogic.Units
 
         }
 
-        public async Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId)
+        public async Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId, CalculationRuleEnum? calculationRule)
         {
             switch (unitType)
             {
                 case UnitTypeEnum.NumberChaos:
                     return await GenerateNumberChaosUnit(levelType, userId);
+                case UnitTypeEnum.Calculation:
+                    return await GenerateCalculationUnit(levelType, (CalculationRuleEnum)calculationRule, userId);
                 default: throw new ArgumentNullException(nameof(unitType));
             }
         }
 
+        private async Task<Unit> GenerateCalculationUnit(LevelTypeEnum levelType, CalculationRuleEnum calculationRule, int userId)
+        {
+            var maxResult = GetMaxResult(levelType);
+            var unitCount = 5;
+            var units = new List<CalculationUnit>();
+
+            for (var i = 0; i < 5; i++)
+            {
+                units.Add(GenerateCalculationUnit(maxResult, calculationRule));
+            }
+
+
+            return await Task.FromResult(new Unit
+            {
+                UserId = userId,
+                Level = levelType,
+                UnitType = UnitTypeEnum.Calculation,
+                UnitContext = new UnitContext
+                {
+
+                }
+            });
+        }
+
+        private CalculationUnit GenerateCalculationUnit(int maxResult, CalculationRuleEnum calculationRule)
+        {
+            var number = new Random().Next(0, maxResult);
+            var result = new Random().Next(number, maxResult);
+
+            if (calculationRule == CalculationRuleEnum.Plus)
+            {
+                return GetPlusUnit(result, calculationRule);
+
+            }
+            else if (calculationRule == CalculationRuleEnum.Minus)
+            {
+                return GetMinusUnit(result, calculationRule);
+            }
+            else
+            {
+                var randomRule = (CalculationRuleEnum)new Random().Next(0, 1);
+
+                switch (randomRule)
+                {
+                    case CalculationRuleEnum.Plus:
+                        return GetPlusUnit(result, randomRule);
+                    case CalculationRuleEnum.Minus:
+                        return GetMinusUnit(result, randomRule);
+                    default: throw new ArgumentOutOfRangeException(nameof(randomRule));
+                }
+            }
+
+        }
+
+        private CalculationUnit GetPlusUnit(int result, CalculationRuleEnum calculationRule)
+        {
+            var number = new Random().Next(0, result);
+
+            return new CalculationUnit
+            {
+                NumberOne = number,
+                NumberTwo = result - number,
+                Result = result,
+                CalculationRule = calculationRule
+
+            };
+        }
+
+        private CalculationUnit GetMinusUnit(int number, CalculationRuleEnum calculationRule)
+        {
+            var result = new Random().Next(0, number);
+            var secondNumber = result - number;
+
+            return new CalculationUnit
+            {
+                NumberOne = number,
+                NumberTwo = secondNumber,
+                Result = result,
+                CalculationRule = calculationRule
+            };
+        }
+
+        private int GetMaxResult(LevelTypeEnum level)
+        {
+            switch (level)
+            {
+                case LevelTypeEnum.Easy:
+                    return 10;
+                case LevelTypeEnum.Medium:
+                    return 30;
+                case LevelTypeEnum.Expert:
+                    return 100;
+                default: throw new ArgumentNullException(nameof(level));
+
+            }
+        }
+
+        #region NumberChaos
         private async Task<Unit> GenerateNumberChaosUnit(LevelTypeEnum level, int userId)
         {
             var startNumber = GetStartNumber(level);
@@ -47,30 +147,12 @@ namespace Businesslogic.Units
             });
         }
 
-   
-
-        private List<int> GetShuffeledNumbers(List<int> numbers)
-        {
-            var shuffeledNumbers = new List<int>();
-            var generator = new Random();
-
-            while (numbers.Count > 0)
-            {
-                var positionToRemove = generator.Next(numbers.Count);
-                shuffeledNumbers.Add(numbers[positionToRemove]);
-
-                numbers.Remove(positionToRemove);
-            }
-
-            return shuffeledNumbers;
-        }
-
         private List<int> GetNumbers(int startNumber)
         {
             var random = new Random();
             var numbers = new List<int>();
 
-            for(var i = startNumber; i < startNumber + 10; i++)
+            for (var i = startNumber; i < startNumber + 10; i++)
             {
                 numbers.Add(i);
             }
@@ -83,13 +165,14 @@ namespace Businesslogic.Units
             switch (level)
             {
                 case LevelTypeEnum.Easy:
-                    return 1;
+                    return new Random().Next(1, 10);
                 case LevelTypeEnum.Medium:
-                    return 11;
+                    return new Random().Next(1, 30);
                 case LevelTypeEnum.Expert:
-                    return new Random().Next(21, 91);
+                    return new Random().Next(31, 91);
                 default: return 1;
             }
         }
+        #endregion
     }
 }
