@@ -1,3 +1,3 @@
-export enum UnitTypeEnum{
-    NumberChaos = 0
+export enum UnitTypeEnum {
+  NumberChaos = 0,
 }

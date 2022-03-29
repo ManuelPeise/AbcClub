@@ -12,7 +12,9 @@ const styles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         position: 'relative',
-        flexShrink: 'inherit'
+        flexShrink: 'inherit',
+        minHeight: '70vh',
+        overflow: 'hidden'
     }
 })
 
