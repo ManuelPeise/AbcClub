@@ -14,11 +14,14 @@ interface IProps{
     hasSaveBtn: boolean
     saveBtnValue: string
     hasCancelBtn: boolean
+    saveDisabled: boolean
+    handleClick: () => void
+    handleCancel?: () => void
 }
 
 const ButtonGroup: React.FC<IProps> = (props) =>{
 
-    const {hasCancelBtn, hasSaveBtn, saveBtnValue} = props
+    const {hasCancelBtn, hasSaveBtn, saveBtnValue, saveDisabled, handleClick, handleCancel} = props
     const classes = styles()
 
     return(
@@ -26,10 +29,10 @@ const ButtonGroup: React.FC<IProps> = (props) =>{
             container
             className={classes.btnGrpContainer}>
             {hasCancelBtn &&(
-            <Button>Abbrechen</Button>
+            <Button disabled = {!saveDisabled} onClick = {handleCancel}>Abbrechen</Button>
             )}
             {hasSaveBtn &&(
-            <Button>{saveBtnValue}</Button>
+            <Button disabled = {saveDisabled} onClick = {handleClick} >{saveBtnValue}</Button>
             )}
         </Grid>
     )

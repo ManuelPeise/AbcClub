@@ -60,7 +60,7 @@ const AbcClubAppBar: React.FC<IProps> = (props) =>{
     const classes = styles()
 
     const userItems = React.useMemo(() =>{
-        const items: IListItem[] = [{key: 0, value: 'Bitte wählen'}]
+        const items: IListItem[] = [{key: -1, value: 'Bitte wählen'}]
 
         userDataCollection?.forEach((data) =>{
             items.push({key: data.id, value: data.username})
@@ -111,7 +111,7 @@ const AbcClubAppBar: React.FC<IProps> = (props) =>{
                         <DropDown 
                             items={userItems} 
                             selectedItem={selectedItem}
-                            setUserData={setUser}/>
+                            onHandleChange={setUser}/>
                     </Grid>
                 </Grid>
             </Toolbar>

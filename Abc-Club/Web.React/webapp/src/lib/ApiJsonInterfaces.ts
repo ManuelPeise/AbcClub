@@ -8,6 +8,6 @@ export interface IApiResult<TItem = any>{
     items: TItem[]
     isLoading: boolean
     dataIsBound: boolean
-    get: (options?: IApiOptions) => Promise<void>
+    sendRequest: (options?: IApiOptions) => Promise<void>
     post: (options?: IApiOptions) => Promise<void>
 }

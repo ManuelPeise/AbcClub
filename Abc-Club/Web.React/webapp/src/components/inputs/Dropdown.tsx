@@ -6,12 +6,12 @@ import { IListItem } from '../../interfaces/IListItem'
 interface IProps extends InputProps{
     items: IListItem[]
     selectedItem: IListItem
-    setUserData: (id: number) => void
+    onHandleChange: (id: number) => void
 }
 
 const DropDown: React.FC<IProps> = (props) => {
 
-    const {items, selectedItem, setUserData} = props
+    const {items, selectedItem, disabled, onHandleChange} = props
     
     const [value, setValue] = React.useState<IListItem | null>(selectedItem?? null)
 
@@ -20,8 +20,8 @@ const DropDown: React.FC<IProps> = (props) => {
         const item = items[parseInt(event.currentTarget.id)]
         setValue(item)
 
-        setUserData(item.key)
-    },[items, setUserData]);
+        onHandleChange(item.key)
+    },[items, onHandleChange]);
 
     return(
         <TextField
@@ -30,12 +30,13 @@ const DropDown: React.FC<IProps> = (props) => {
             value={value?.key?? items[0].key}
             color='primary'
             variant='outlined'
+            disabled={disabled}
             onChange={handleChange}>
                 {items.map((item)=>{
                     return(   
                         <MenuItem
                             id={item.key.toString()}
-                            disabled = {item.key === 0}
+                            disabled = {item.key === -1}
                             key={item.key}
                             value={item.key}>
                                <Typography variant='h6'>

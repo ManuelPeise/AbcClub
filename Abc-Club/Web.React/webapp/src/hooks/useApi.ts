@@ -3,20 +3,20 @@ import { IApiOptions, IApiResult } from '../lib/ApiJsonInterfaces'
 
 const useApi = <TItem= any>(options: IApiOptions): IApiResult<TItem> => {
 
-    const [items, setItems] = React.useState<TItem[]>([])
+    const [items, setItems] = React.useState<TItem[]>([] as TItem[])
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [apiOptions, setApiOptions] = React.useState<IApiOptions>(options)
 
-    const get = React.useCallback(async (options?: IApiOptions) => {
-        setApiOptions({...options, ...apiOptions})
-
+    const sendRequest = React.useCallback(async (options?: IApiOptions) => {
+        setApiOptions({...apiOptions, ...options})
         setIsLoading(true)
-        await fetch(apiOptions.serviceUrl, {method:apiOptions.method, mode:'cors'})
+
+        await fetch(options?.serviceUrl?? apiOptions.serviceUrl, {method:options?.method?? apiOptions.method, mode:'cors'})
         .then(async (res) =>{
             if(res.status === 200){
 
                 const data: TItem[] = await JSON.parse(await JSON.stringify(await res.json()))
-
+                
                 setItems(data)
             }
 
@@ -26,11 +26,15 @@ const useApi = <TItem= any>(options: IApiOptions): IApiResult<TItem> => {
 
     const post = async (options?: IApiOptions) => {
         setApiOptions({...options, ...apiOptions})
+
+        setIsLoading(true)
+
+        
     }
 
     useEffect(()=>{
         const getData = async () =>{
-            await get()
+            await sendRequest()
         }
 
         getData()
@@ -40,7 +44,7 @@ const useApi = <TItem= any>(options: IApiOptions): IApiResult<TItem> => {
         items,
         isLoading,
         dataIsBound: items?.length > 0,
-        get,
+        sendRequest,
         post
     }
 }

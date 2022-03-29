@@ -7,6 +7,12 @@ const styles = makeStyles({
         display: 'flex',
         position:'relative',
         width: '100vw'
+    },
+    contentContainer:{
+        display: 'flex',
+        justifyContent: 'center',
+        position: 'relative',
+        flexShrink: 'inherit'
     }
 })
 
@@ -22,9 +28,12 @@ const MathunitContainer: React.FC<IProps> = (props) =>{
     return(
         <Grid
             container
+            justifyContent='center'
+            spacing={3}
             className={classes.mathUnitContainer}>
             <PageTitleContainer title={title}/>
             <Grid
+                className={classes.contentContainer}
                 container>
                 {children}
             </Grid>
