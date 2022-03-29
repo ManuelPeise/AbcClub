@@ -1,7 +1,7 @@
 export interface IApiOptions {
   serviceUrl: string;
   method: "GET" | "POST";
-  parameters?: string;
+  parameters?: any;
 }
 
 export interface IApiResult<TItem = any> {

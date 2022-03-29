@@ -31,8 +31,19 @@ const useApi = <TItem = any>(options: IApiOptions): IApiResult<TItem> => {
 
   const post = async (options?: IApiOptions) => {
     setApiOptions({ ...options, ...apiOptions });
-
     setIsLoading(true);
+
+    await fetch(options?.serviceUrl ?? apiOptions.serviceUrl, {
+      method: options?.method ?? apiOptions.method,
+      mode: "cors",
+      body: JSON.stringify(options?.parameters),
+      headers: { "content-type": "application/json" },
+    }).then(async (res) => {
+      if (res.status === 200) {
+      }
+
+      setIsLoading(false);
+    });
   };
 
   useEffect(() => {

@@ -3,31 +3,40 @@ import MathunitContainer from "../MathUnitContainer";
 import ButtonGroup from "../../../components/inputs/ButtonGroup";
 import { IUnitResponseModel } from "../../../interfaces/IUnitResponseModel";
 import DropContainer from "../../../components/dragNDrop/DropContainer";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import MathunitSettingsBar from "../MathUnitSettingsBar";
 import { LevelTypeEnum } from "../../../lib/enums/LevelTypeEnum";
+import DraggableCard from "../../../components/dragNDrop/DaggableCard";
+import { INumberchaosUnitResult } from "../../../interfaces/IUnitResult";
+import NumberchaosResultDialog from "./NumberchaosResultDialog";
+
+const dropItem = "drop-item";
+const dragItem = "drag-item";
+const btnValue = "Start";
 
 interface IProps {
   unit: IUnitResponseModel;
   inProgress: boolean;
   level: LevelTypeEnum;
+  unitResult: INumberchaosUnitResult;
   handleStart: () => void;
   handleCancel: () => void;
   handleDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
   handleAllowDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   handleLevelChanged: (level: number) => void;
+  saveResult: () => Promise<void>;
 }
 
 const style: CSSProperties = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "auto",
-  minWidth: "3rem",
+  width: "4rem",
   height: "auto",
-  minHeight: "3rem",
-  margin: "2rem",
+  maxHeight: "4rem",
+  margin: "1rem",
+  padding: "1rem",
   border: "1px solid lightgray",
 };
 
@@ -36,36 +45,36 @@ const NumberchaosContainer: React.FC<IProps> = (props) => {
     unit,
     inProgress,
     level,
+    unitResult,
     handleStart,
     handleCancel,
     handleDragStart,
     handleAllowDrop,
     handleDrop,
     handleLevelChanged,
+    saveResult,
   } = props;
 
-  const btnValue = "Start";
+  const resultDialopOpen =
+    unitResult.result?.length > 0 && unitResult.solution?.length > 0;
 
   const dragItems = React.useMemo((): JSX.Element[] => {
     const items: number[] = JSON.parse(unit.unitContext.context);
 
     return items?.map((item, index) => {
       return (
-        <Paper key={"question-container-" + index} style={style}>
-          <DropContainer
-            id={item.toString()}
-            key={item}
-            style={style}
-            handleDragStart={handleDragStart}
-            handleAllowDrop={handleAllowDrop}
-            handleDrop={handleDrop}
-          >
-            <div key={"question-" + index}>{item}</div>
-          </DropContainer>
-        </Paper>
+        <DraggableCard
+          id={item.toString()}
+          className={dragItem}
+          key={item}
+          style={style}
+          handleDragStart={handleDragStart}
+        >
+          {item}
+        </DraggableCard>
       );
     });
-  }, [handleDragStart, handleAllowDrop, handleDrop, unit.unitContext]);
+  }, [handleDragStart, unit.unitContext]);
 
   const dropItems = React.useMemo(() => {
     const items: number[] = JSON.parse(unit.unitContext.context);
@@ -75,6 +84,7 @@ const NumberchaosContainer: React.FC<IProps> = (props) => {
         <DropContainer
           id={"answer-" + index}
           key={item}
+          className={dropItem}
           style={style}
           handleDragStart={handleDragStart}
           handleAllowDrop={handleAllowDrop}
@@ -101,6 +111,13 @@ const NumberchaosContainer: React.FC<IProps> = (props) => {
               {dropItems}
             </Grid>
           </React.Fragment>
+        )}
+        {resultDialopOpen && (
+          <NumberchaosResultDialog
+            dialogOpen={resultDialopOpen}
+            result={unitResult}
+            saveResult={saveResult}
+          />
         )}
       </MathunitContainer>
       <ButtonGroup
