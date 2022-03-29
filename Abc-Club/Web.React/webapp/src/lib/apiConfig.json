@@ -1,0 +1,12 @@
+{
+  "baseUrl": "https://localhost:44374",
+  "userService": {
+    "getUsers": "/api/User/GetUsers"
+  },
+  "math": {
+    "unitController": "/api/unit",
+    "getunit": "/RequestUnit",
+    "statistics": "/GetStatisics",
+    "saveUnitResult": "/SaveUnitResult"
+  }
+}

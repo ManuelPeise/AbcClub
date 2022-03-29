@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Businesslogic.Units\Businesslogic.Units.csproj" />
+    <ProjectReference Include="..\Businesslogic.User\Businesslogic.User.csproj" />
+    <ProjectReference Include="..\Data.AppData\Data.AppData.csproj" />
+    <ProjectReference Include="..\Data.UserContext\Data.UserContext.csproj" />
+    <ProjectReference Include="..\Service.UnitService\Service.UnitService.csproj" />
+    <ProjectReference Include="..\Service.UserService\Service.UserService.csproj" />
+  </ItemGroup>
+
+</Project>
