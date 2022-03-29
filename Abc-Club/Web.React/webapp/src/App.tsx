@@ -1,14 +1,14 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import './App.css';
-import AppRouter from './lib/Router';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import AppRouter from "./lib/Router";
 
-const App: React.FC = () =>{
-  return(
+const App: React.FC = () => {
+  return (
     <BrowserRouter>
-      <AppRouter/>
+      <AppRouter />
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default App;

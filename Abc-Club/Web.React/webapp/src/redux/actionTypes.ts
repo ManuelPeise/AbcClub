@@ -1,10 +1,10 @@
-import { IUserData } from "../interfaces/IUserData"
+import { IUserData } from "../interfaces/IUserData";
 
-export const SET_USERDATA = 'SETUSERDATA'
+export const SET_USERDATA = "SETUSERDATA";
 
-export interface SetUserData  {
-   type: typeof SET_USERDATA,
-   payload: IUserData
+export interface SetUserData {
+  type: typeof SET_USERDATA;
+  payload: IUserData;
 }
 
-export type Action = SetUserData
+export type Action = SetUserData;

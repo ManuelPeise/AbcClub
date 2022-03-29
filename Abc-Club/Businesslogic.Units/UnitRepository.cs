@@ -117,7 +117,7 @@ namespace Businesslogic.Units
             var allQuestions = results.Sum(res => res.QuestionCount);
             var points = results.Sum(res => res.Points);
 
-            return (points * 100) / (allQuestions * GetPointsPerQuestion(unitType));
+            return (points * 100) / allQuestions;
 
         }
 

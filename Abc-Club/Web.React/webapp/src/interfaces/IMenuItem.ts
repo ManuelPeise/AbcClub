@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
-export interface IMenuItem{
-    title: string
-    subTitle: string
-    route: string
-    component?: React.FC
-    subMenu?: IMenuItem[]
+export interface IMenuItem {
+  title: string;
+  subTitle: string;
+  route: string;
+  component?: React.FC;
+  subMenu?: IMenuItem[];
 }

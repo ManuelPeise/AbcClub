@@ -8,7 +8,7 @@ namespace Data.UserContext
     {
         public UserDataContext(DbContextOptions<UserDataContext> options) : base(options) { }
 
-        public DbSet<UserData> UserData { get; set; }
+        public DbSet<UserDataModel> UserData { get; set; }
 
     }
 }
