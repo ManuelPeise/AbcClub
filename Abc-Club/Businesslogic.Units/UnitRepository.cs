@@ -51,12 +51,12 @@ namespace Businesslogic.Units
 
         }
 
-        public async Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId)
+        public async Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId, CalculationRuleEnum? calculationRule)
         {
             try
             {
                 var unitGenerator = _unitGenerator ?? new UnitGenerator();
-                return await _unitGenerator.GenerateUnit(unitType, levelType, userId);
+                return await _unitGenerator.GenerateUnit(unitType, levelType, userId, calculationRule);
             }
             catch (Exception exception)
             {

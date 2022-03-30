@@ -4,12 +4,13 @@ import { IListItem } from "../../interfaces/IListItem";
 
 interface IProps extends InputProps {
   items: IListItem[];
+  title?: string;
   selectedItem: IListItem;
   onHandleChange: (id: number) => void;
 }
 
 const DropDown: React.FC<IProps> = (props) => {
-  const { items, selectedItem, disabled, onHandleChange } = props;
+  const { items, selectedItem, disabled, title, onHandleChange } = props;
 
   const [value, setValue] = React.useState<IListItem | null>(
     selectedItem ?? null
@@ -29,6 +30,7 @@ const DropDown: React.FC<IProps> = (props) => {
     <TextField
       style={{ minWidth: "10vw" }}
       select
+      label={title}
       value={value?.key ?? items[0].key}
       color="primary"
       variant="outlined"

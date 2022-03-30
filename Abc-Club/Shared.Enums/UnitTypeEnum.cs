@@ -2,6 +2,7 @@
 {
     public enum UnitTypeEnum
     {
-        NumberChaos = 0
+        NumberChaos = 0,
+        Calculation = 1
     }
 }
