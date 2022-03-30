@@ -4,6 +4,7 @@ import NotFound from "../pages/NotFound";
 import { IMenuItem } from "../interfaces/IMenuItem";
 import NumberchaosDataservice from "../pages/mathunits/numberChaos/NumberchaosDataService";
 import CalculationDataService from "../pages/mathunits/calculation/CalculationDataService";
+import LandingPageDataService from "../pages/landingPage/LandingPageDataService";
 
 export const getRoutes = (): RouteObject[] => {
   return [
@@ -11,7 +12,7 @@ export const getRoutes = (): RouteObject[] => {
       path: "/",
       element: (
         <PageLayout>
-          <div>Home</div>
+          <LandingPageDataService />
         </PageLayout>
       ),
       children: [
