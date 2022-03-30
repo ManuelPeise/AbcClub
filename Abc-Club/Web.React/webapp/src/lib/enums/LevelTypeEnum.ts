@@ -1,5 +1,5 @@
 export enum LevelTypeEnum {
-  easy = 0,
-  medium = 1,
-  expert = 2,
+  Easy = 0,
+  Medium = 1,
+  Expert = 2,
 }

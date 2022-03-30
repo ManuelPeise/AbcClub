@@ -15,7 +15,7 @@ namespace Businesslogic.Units
 
         }
 
-        public async Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId, CalculationRuleEnum? calculationRule)
+        public async Task<Unit> GenerateUnit(UnitTypeEnum unitType, LevelTypeEnum levelType, int userId, CalculationRuleEnum? calculationRule = null)
         {
             switch (unitType)
             {
@@ -46,14 +46,15 @@ namespace Businesslogic.Units
                 UnitType = UnitTypeEnum.Calculation,
                 UnitContext = new UnitContext
                 {
-
+                    Context = JsonConvert.SerializeObject(units),
+                    UnitSolution = JsonConvert.SerializeObject(units),
                 }
             });
         }
 
         private CalculationUnit GenerateCalculationUnit(int maxResult, CalculationRuleEnum calculationRule)
         {
-            var number = new Random().Next(0, maxResult);
+            var number = new Random().Next(1, maxResult);
             var result = new Random().Next(number, maxResult);
 
             if (calculationRule == CalculationRuleEnum.Plus)
@@ -83,7 +84,7 @@ namespace Businesslogic.Units
 
         private CalculationUnit GetPlusUnit(int result, CalculationRuleEnum calculationRule)
         {
-            var number = new Random().Next(0, result);
+            var number = new Random().Next(1, result);
 
             return new CalculationUnit
             {
@@ -97,13 +98,13 @@ namespace Businesslogic.Units
 
         private CalculationUnit GetMinusUnit(int number, CalculationRuleEnum calculationRule)
         {
-            var result = new Random().Next(0, number);
-            var secondNumber = result - number;
+            var numberTwo = new Random().Next(1, number);
+            var result = number - numberTwo;
 
             return new CalculationUnit
             {
                 NumberOne = number,
-                NumberTwo = secondNumber,
+                NumberTwo = numberTwo,
                 Result = result,
                 CalculationRule = calculationRule
             };

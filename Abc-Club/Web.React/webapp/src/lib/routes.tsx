@@ -1,9 +1,9 @@
-import { StrictMode } from "react";
 import PageLayout from "./PageLayout";
 import { RouteObject } from "react-router";
 import NotFound from "../pages/NotFound";
 import { IMenuItem } from "../interfaces/IMenuItem";
 import NumberchaosDataservice from "../pages/mathunits/numberChaos/NumberchaosDataService";
+import CalculationDataService from "../pages/mathunits/calculation/CalculationDataService";
 
 export const getRoutes = (): RouteObject[] => {
   return [
@@ -41,11 +41,17 @@ export const getRoutes = (): RouteObject[] => {
         {
           path: "/mathunits/numberchaos",
           element: (
-            <StrictMode>
-              <PageLayout>
-                <NumberchaosDataservice />
-              </PageLayout>
-            </StrictMode>
+            <PageLayout>
+              <NumberchaosDataservice />
+            </PageLayout>
+          ),
+        },
+        {
+          path: "/mathunits/calculate",
+          element: (
+            <PageLayout>
+              <CalculationDataService />
+            </PageLayout>
           ),
         },
       ],
@@ -65,11 +71,9 @@ export const getRoutes = (): RouteObject[] => {
         {
           path: "/germanunits/test",
           element: (
-            <StrictMode>
-              <PageLayout>
-                <div>Deutsch</div>
-              </PageLayout>
-            </StrictMode>
+            <PageLayout>
+              <div>Deutsch</div>
+            </PageLayout>
           ),
         },
       ],
@@ -98,6 +102,12 @@ export const getMenuItems = (): IMenuItem[] => {
         route: "/mathunits/numberchaos",
         title: "Zahlenchaos",
         subTitle: "Sortiere die Zahlen",
+        subMenu: [],
+      },
+      {
+        route: "/mathunits/calculate",
+        title: "Rechnen",
+        subTitle: "Einfache Rechenaufgaben",
         subMenu: [],
       },
     ],

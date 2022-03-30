@@ -13,3 +13,8 @@ export interface IUnitResult {
   questionCount: number;
   points: number;
 }
+
+export interface ICalculationResult {
+  key: number;
+  value?: number;
+}
