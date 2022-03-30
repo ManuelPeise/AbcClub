@@ -2,11 +2,7 @@ import React from "react";
 import NumberchaosContainer from "./NumberchaosContainer";
 import apiConfig from "../../../lib/apiConfig.json";
 import useApi from "../../../hooks/useApi";
-import { useSelector } from "react-redux";
-import { IAppState } from "../../../interfaces/IAppState";
-import { IUserData } from "../../../interfaces/IUserData";
 import { IUnitRequestModel } from "../../../interfaces/IUnitRequestModel";
-import { LevelTypeEnum } from "../../../lib/enums/LevelTypeEnum";
 import { UnitTypeEnum } from "../../../lib/enums/UnitTypeEnum";
 import { IUnitResponseModel } from "../../../interfaces/IUnitResponseModel";
 import { IApiOptions } from "../../../lib/ApiJsonInterfaces";
@@ -14,51 +10,43 @@ import {
   INumberchaosUnitResult,
   IUnitResult,
 } from "../../../interfaces/IUnitResult";
+import { useMathUnit } from "../../../hooks/useMathUnit";
 
 const dropClassName = ".drop-item";
+const controller = apiConfig.baseUrl + apiConfig.math.unitController;
 
 const NumberchaosDataservice: React.FC = () => {
-  const userData = useSelector<IAppState, IUserData>((state) => state.userData);
-  const [inProgress, setInProgress] = React.useState<boolean>(false);
-  const [level, setLevel] = React.useState<LevelTypeEnum>(LevelTypeEnum.easy);
+  const mathUnitService = useMathUnit();
+
   const [result, setResult] = React.useState<INumberchaosUnitResult>(
     {} as INumberchaosUnitResult
   );
 
   const requestModel = React.useMemo((): IUnitRequestModel => {
-    return {
-      levelType: level,
-      unitType: UnitTypeEnum.NumberChaos,
-      userId: userData.id,
-    };
-  }, [level, userData]);
+    return mathUnitService.getUnitRequestModel(UnitTypeEnum.NumberChaos);
+  }, [mathUnitService]);
 
   const getUnitApiOptions = React.useMemo((): IApiOptions => {
-    return {
-      serviceUrl:
-        apiConfig.baseUrl +
-        apiConfig.math.unitController +
-        apiConfig.math.getunit +
-        "/" +
-        JSON.stringify(requestModel),
-      method: "GET",
-    };
-  }, [requestModel]);
+    const url =
+      controller + apiConfig.math.getunit + JSON.stringify(requestModel);
+
+    return mathUnitService.getUnitApiOptions(url, "GET");
+  }, [mathUnitService, requestModel]);
 
   const numberChaosApi = useApi<IUnitResponseModel>(getUnitApiOptions);
 
   const handleStart = React.useCallback(async () => {
     numberChaosApi.sendRequest(getUnitApiOptions);
-    setInProgress(true);
+    mathUnitService.handleInProgress(true);
     setResult({ solution: [], result: [] });
-  }, [getUnitApiOptions, numberChaosApi]);
+  }, [mathUnitService, getUnitApiOptions, numberChaosApi]);
 
   const handleCancel = React.useCallback(() => {
-    setInProgress(false);
-  }, []);
+    mathUnitService.handleInProgress(false);
+  }, [mathUnitService]);
 
   const unitFinished = React.useCallback((): boolean => {
-    if (inProgress) {
+    if (mathUnitService.inProgress) {
       const elements = document.querySelectorAll(dropClassName);
 
       const emptyElements = [] as Element[];
@@ -74,7 +62,7 @@ const NumberchaosDataservice: React.FC = () => {
       }
     }
     return true;
-  }, [inProgress]);
+  }, [mathUnitService.inProgress]);
 
   const getUnitResult = React.useCallback((): number[] => {
     const result = [] as number[];
@@ -115,7 +103,7 @@ const NumberchaosDataservice: React.FC = () => {
       const finished = unitFinished();
 
       if (finished) {
-        setInProgress(!finished);
+        mathUnitService.handleInProgress(!finished);
 
         setResult({
           solution: JSON.parse(
@@ -125,22 +113,15 @@ const NumberchaosDataservice: React.FC = () => {
         });
       }
     },
-    [numberChaosApi.items, unitFinished, getUnitResult]
+    [mathUnitService, numberChaosApi.items, unitFinished, getUnitResult]
   );
 
-  const handleLevelChanged = React.useCallback((level: number) => {
-    if (level === 0) {
-      setLevel(LevelTypeEnum.easy);
-    }
-
-    if (level === 1) {
-      setLevel(LevelTypeEnum.medium);
-    }
-
-    if (level === 2) {
-      setLevel(LevelTypeEnum.expert);
-    }
-  }, []);
+  const handleLevelChanged = React.useCallback(
+    (level: number) => {
+      mathUnitService.handleLevel(level);
+    },
+    [mathUnitService]
+  );
 
   const getPoints = React.useCallback(() => {
     let points = 0;
@@ -155,9 +136,9 @@ const NumberchaosDataservice: React.FC = () => {
 
   const saveResult = React.useCallback(async () => {
     const result: IUnitResult = {
-      userId: userData.id,
+      userId: mathUnitService.userData.id,
       unitType: UnitTypeEnum.NumberChaos,
-      level: level,
+      level: mathUnitService.level,
       questionCount: 10,
       points: getPoints(),
     };
@@ -170,11 +151,16 @@ const NumberchaosDataservice: React.FC = () => {
       method: "POST",
       parameters: result,
     });
-  }, [userData.id, level, numberChaosApi, getPoints]);
+  }, [
+    mathUnitService.userData.id,
+    mathUnitService.level,
+    numberChaosApi,
+    getPoints,
+  ]);
 
   if (
     numberChaosApi.items[0] === undefined ||
-    userData.username === undefined
+    mathUnitService.userData.username === undefined
   ) {
     return null;
   }
@@ -182,8 +168,8 @@ const NumberchaosDataservice: React.FC = () => {
   return (
     <NumberchaosContainer
       unit={numberChaosApi.items[0]}
-      inProgress={inProgress}
-      level={level}
+      inProgress={mathUnitService.inProgress}
+      level={mathUnitService.level}
       unitResult={result}
       handleStart={handleStart}
       handleCancel={handleCancel}

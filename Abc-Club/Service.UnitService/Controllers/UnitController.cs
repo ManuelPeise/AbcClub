@@ -38,7 +38,7 @@ namespace Service.UnitService.Controllers
             using (var repo = _unitRepository)
             {   
                 var units = new List<Unit>();
-                units.Add(await repo.GenerateUnit(model.UnitType, model.LevelType, model.UserId));
+                units.Add(await repo.GenerateUnit(model.UnitType, model.LevelType, model.UserId, model.CalculationRule));
 
                 return units;
             }

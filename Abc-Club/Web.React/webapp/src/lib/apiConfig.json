@@ -5,7 +5,7 @@
   },
   "math": {
     "unitController": "/api/unit",
-    "getunit": "/RequestUnit",
+    "getunit": "/RequestUnit/",
     "statistics": "/GetStatisics",
     "saveUnitResult": "/SaveUnitResult"
   }
