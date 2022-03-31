@@ -39,11 +39,14 @@ const AbcQuizDataService: React.FC = () => {
     abcQuizService.handleInProgress(false);
   }, [abcQuizService]);
 
-  const handleLevelChanged = React.useCallback(
-    (level: number) => {
-      abcQuizService.handleLevel(level);
+  const handleValue = React.useCallback(
+    (value: string, id: number) => {
+      const copy = [...unitItems];
+      copy[id] = value;
+
+      setUnitItems(copy);
     },
-    [abcQuizService]
+    [unitItems]
   );
 
   if (
@@ -62,6 +65,7 @@ const AbcQuizDataService: React.FC = () => {
       handleLevelChanged={abcQuizService.handleLevel}
       handleStart={handleStart}
       handleCancel={handleCancel}
+      handleValue={handleValue}
     />
   );
 };

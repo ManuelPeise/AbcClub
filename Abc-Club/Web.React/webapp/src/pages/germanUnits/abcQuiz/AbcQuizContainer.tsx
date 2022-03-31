@@ -13,6 +13,7 @@ interface IProps {
   handleLevelChanged: (level: number) => void;
   handleStart: () => void;
   handleCancel: () => void;
+  handleValue: (value: string, id: number) => void;
 }
 
 const AbcQuizContainer: React.FC<IProps> = (props) => {
@@ -24,38 +25,55 @@ const AbcQuizContainer: React.FC<IProps> = (props) => {
     handleLevelChanged,
     handleStart,
     handleCancel,
+    handleValue,
   } = props;
 
-  return (
-    <React.Fragment>
-      <UnitContainer title="ABC-Quiz">
-        <UnitSettingsBar
-          disabled={inProgress}
-          level={level}
-          setLevel={handleLevelChanged}
-        />
-        {inProgress && level === LevelTypeEnum.Easy && (
-          <CardContainer
-            title="Test"
-            isReadOnly={true}
-            isHelper={true}
-            items={helperItems}
+  const container = React.useMemo(() => {
+    return (
+      <React.Fragment>
+        <UnitContainer title="ABC-Quiz">
+          <UnitSettingsBar
+            disabled={inProgress}
+            level={level}
+            setLevel={handleLevelChanged}
           />
-        )}
-        {inProgress && (
-          <CardContainer title="Test" isReadOnly={true} items={unitItems} />
-        )}
-      </UnitContainer>
-      <ButtonGroup
-        saveBtnValue="Start"
-        saveDisabled={inProgress}
-        hasCancelBtn={true}
-        hasSaveBtn={true}
-        handleClick={handleStart}
-        handleCancel={handleCancel}
-      />
-    </React.Fragment>
-  );
+          {inProgress && level === LevelTypeEnum.Easy && (
+            <CardContainer
+              isHelper={true}
+              items={helperItems}
+              handleValue={handleValue}
+            />
+          )}
+          {inProgress && (
+            <CardContainer
+              isHelper={false}
+              items={unitItems}
+              handleValue={handleValue}
+            />
+          )}
+        </UnitContainer>
+        <ButtonGroup
+          saveBtnValue="Start"
+          saveDisabled={inProgress}
+          hasCancelBtn={true}
+          hasSaveBtn={true}
+          handleClick={handleStart}
+          handleCancel={handleCancel}
+        />
+      </React.Fragment>
+    );
+  }, [
+    level,
+    inProgress,
+    unitItems,
+    helperItems,
+    handleValue,
+    handleStart,
+    handleLevelChanged,
+    handleCancel,
+  ]);
+
+  return container;
 };
 
 export default AbcQuizContainer;

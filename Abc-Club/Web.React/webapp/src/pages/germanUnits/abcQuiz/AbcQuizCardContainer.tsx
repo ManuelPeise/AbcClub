@@ -3,21 +3,19 @@ import React from "react";
 import AbcQuizCard from "./AbcQuizCard";
 
 interface IProps {
-  title: string;
-  isReadOnly: boolean;
   items: string[];
   isHelper?: boolean;
+  handleValue: (value: string, id: number) => void;
 }
 
 const CardContainer: React.FC<IProps> = (props) => {
-  const { title, isReadOnly, items, isHelper } = props;
+  const { items, isHelper, handleValue } = props;
 
-  return (
-    <React.Fragment>
+  const context = React.useMemo(() => {
+    return (
       <Grid
         style={{
           width: "60vw",
-          //   margin: "2rem",
           backgroundColor: isHelper ? "lightgray" : "",
         }}
         container
@@ -29,23 +27,39 @@ const CardContainer: React.FC<IProps> = (props) => {
           {items.map((item, index) => {
             if (index < 13) {
               return (
-                <AbcQuizCard key={index} isReadonly={isReadOnly} value={item} />
+                <AbcQuizCard
+                  id={index}
+                  key={index}
+                  isReadonly={item === ""}
+                  value={item}
+                  setValue={handleValue}
+                />
               );
             }
+            return null;
           })}
         </Grid>
         <Grid container justifyContent="center" wrap="wrap">
           {items.map((item, index) => {
             if (index > 12) {
               return (
-                <AbcQuizCard key={index} isReadonly={isReadOnly} value={item} />
+                <AbcQuizCard
+                  id={index}
+                  key={index}
+                  isReadonly={item === ""}
+                  value={item}
+                  setValue={handleValue}
+                />
               );
             }
+            return null;
           })}
         </Grid>
       </Grid>
-    </React.Fragment>
-  );
+    );
+  }, [items, isHelper, handleValue]);
+
+  return <React.Fragment>{context}</React.Fragment>;
 };
 
 export default CardContainer;
