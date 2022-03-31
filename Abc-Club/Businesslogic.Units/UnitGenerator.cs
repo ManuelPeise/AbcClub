@@ -23,9 +23,75 @@ namespace Businesslogic.Units
                     return await GenerateNumberChaosUnit(levelType, userId);
                 case UnitTypeEnum.Calculation:
                     return await GenerateCalculationUnit(levelType, (CalculationRuleEnum)calculationRule, userId);
+                case UnitTypeEnum.AbcQuiz:
+                    return await GenerateAbcQuizUnit(levelType, userId);
                 default: throw new ArgumentNullException(nameof(unitType));
             }
         }
+
+        #region alphabet quiz
+
+        private async Task<Unit> GenerateAbcQuizUnit(LevelTypeEnum levelType, int userId)
+        {
+            var alphabet = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            var solution = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+            return await Task.FromResult(new Unit
+            {
+                UserId = userId,
+                Level = levelType,
+                UnitType = UnitTypeEnum.AbcQuiz,
+                UnitContext = new UnitContext
+                {
+                    Context = GetAlphabetContext(levelType, alphabet),
+                    UnitSolution = JsonConvert.SerializeObject(solution)
+                }
+            });
+        }
+
+        private string GetAlphabetContext(LevelTypeEnum levelType, List<string> alphabet)
+        {
+            var countOfcharsToReplace = GetCharsToReplace(levelType);
+            var matches = new List<int>();
+
+            var generator = new Random();
+
+            for(var i = 0; i < countOfcharsToReplace; i++)
+            {
+                var field = generator.Next(0, alphabet.Count - 1);
+
+                if (!matches.Contains(field))
+                {
+                    alphabet[field] = String.Empty;
+
+                    matches.Add(field);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+
+            return JsonConvert.SerializeObject(alphabet);
+        }
+
+        private int GetCharsToReplace(LevelTypeEnum levelType)
+        {
+            switch (levelType)
+            {
+                case LevelTypeEnum.Easy:
+                    return new Random().Next(1, 4);
+                case LevelTypeEnum.Medium:
+                    return new Random().Next(3, 8);
+                case LevelTypeEnum.Expert:
+                    return new Random().Next(7, 16);
+                default: throw new ArgumentOutOfRangeException(nameof(levelType));
+            }
+        }
+
+        #endregion
+
+        #region Calculation units
 
         private async Task<Unit> GenerateCalculationUnit(LevelTypeEnum levelType, CalculationRuleEnum calculationRule, int userId)
         {
@@ -124,6 +190,8 @@ namespace Businesslogic.Units
 
             }
         }
+
+        #endregion
 
         #region NumberChaos
         private async Task<Unit> GenerateNumberChaosUnit(LevelTypeEnum level, int userId)

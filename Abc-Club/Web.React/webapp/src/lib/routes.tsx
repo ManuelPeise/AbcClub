@@ -5,6 +5,7 @@ import { IMenuItem } from "../interfaces/IMenuItem";
 import NumberchaosDataservice from "../pages/mathunits/numberChaos/NumberchaosDataService";
 import CalculationDataService from "../pages/mathunits/calculation/CalculationDataService";
 import LandingPageDataService from "../pages/landingPage/LandingPageDataService";
+import AbcQuizDataService from "../pages/germanUnits/abcQuiz/AbcQuizDataService";
 
 export const getRoutes = (): RouteObject[] => {
   return [
@@ -70,10 +71,10 @@ export const getRoutes = (): RouteObject[] => {
           ),
         },
         {
-          path: "/germanunits/test",
+          path: "/germanunits/abc-quiz",
           element: (
             <PageLayout>
-              <div>Deutsch</div>
+              <AbcQuizDataService />
             </PageLayout>
           ),
         },
@@ -121,9 +122,9 @@ export const getMenuItems = (): IMenuItem[] => {
     subTitle: "Übungen Deutsch",
     subMenu: [
       {
-        route: "/germanunits/test",
-        title: "Alphabet sortieren",
-        subTitle: "Übung Test",
+        route: "/germanunits/abc-quiz",
+        title: "ABC Quiz",
+        subTitle: "Alphabet vervollständigen",
         subMenu: [],
       },
     ],

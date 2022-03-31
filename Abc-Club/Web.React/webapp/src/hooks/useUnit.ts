@@ -23,7 +23,7 @@ export interface UseMathUnitResult {
   handleCalculationRule: (rule: number) => void;
 }
 
-export const useMathUnit = (): UseMathUnitResult => {
+export const useUnit = (): UseMathUnitResult => {
   const userData = useSelector<IAppState, IUserData>((state) => state.userData);
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [level, setLevel] = React.useState<LevelTypeEnum>(LevelTypeEnum.Easy);
