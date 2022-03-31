@@ -10,10 +10,12 @@ interface IProps {
   level: LevelTypeEnum;
   unitItems: string[];
   helperItems: string[];
+  unitResolved: boolean;
   handleLevelChanged: (level: number) => void;
   handleStart: () => void;
   handleCancel: () => void;
   handleValue: (value: string, id: number) => void;
+  handleSaveResult: () => Promise<void>;
 }
 
 const AbcQuizContainer: React.FC<IProps> = (props) => {
@@ -22,10 +24,12 @@ const AbcQuizContainer: React.FC<IProps> = (props) => {
     level,
     unitItems,
     helperItems,
+    unitResolved,
     handleLevelChanged,
     handleStart,
     handleCancel,
     handleValue,
+    handleSaveResult,
   } = props;
 
   const container = React.useMemo(() => {
@@ -55,10 +59,13 @@ const AbcQuizContainer: React.FC<IProps> = (props) => {
         <ButtonGroup
           saveBtnValue="Start"
           saveDisabled={inProgress}
-          hasCancelBtn={true}
+          hasCancelBtn={!unitResolved}
           hasSaveBtn={true}
+          hasAdditionalBtn={unitResolved} // set value to true if unit resolved
+          additionalBtnValue="Speichern"
           handleClick={handleStart}
           handleCancel={handleCancel}
+          handleAdditionalBtnClick={handleSaveResult}
         />
       </React.Fragment>
     );
@@ -67,10 +74,12 @@ const AbcQuizContainer: React.FC<IProps> = (props) => {
     inProgress,
     unitItems,
     helperItems,
+    unitResolved,
     handleValue,
     handleStart,
     handleLevelChanged,
     handleCancel,
+    handleSaveResult,
   ]);
 
   return container;
