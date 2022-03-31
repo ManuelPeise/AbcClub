@@ -34,6 +34,8 @@ namespace Businesslogic.Units
         private async Task<Unit> GenerateAbcQuizUnit(LevelTypeEnum levelType, int userId)
         {
             var alphabet = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            var solution = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
             return await Task.FromResult(new Unit
             {
                 UserId = userId,
@@ -42,7 +44,7 @@ namespace Businesslogic.Units
                 UnitContext = new UnitContext
                 {
                     Context = GetAlphabetContext(levelType, alphabet),
-                    UnitSolution = JsonConvert.SerializeObject(alphabet)
+                    UnitSolution = JsonConvert.SerializeObject(solution)
                 }
             });
         }

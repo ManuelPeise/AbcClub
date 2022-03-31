@@ -1,5 +1,5 @@
 import React from "react";
-import { useMathUnit } from "../../../hooks/useMathUnit";
+import { useUnit } from "../../../hooks/useUnit";
 import { IUnitRequestModel } from "../../../interfaces/IUnitRequestModel";
 import { IApiOptions } from "../../../lib/ApiJsonInterfaces";
 import { UnitTypeEnum } from "../../../lib/enums/UnitTypeEnum";
@@ -18,7 +18,7 @@ import {
 const controller = apiConfig.baseUrl + apiConfig.math.unitController;
 
 const CalculationDataService: React.FC = () => {
-  const mathUnitService = useMathUnit();
+  const mathUnitService = useUnit();
   const [calculationResult, setCalculationResult] = React.useState<
     ICalculationResult[]
   >([] as ICalculationResult[]);

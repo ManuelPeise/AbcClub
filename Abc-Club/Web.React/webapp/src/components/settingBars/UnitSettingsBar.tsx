@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from "@material-ui/core";
 import React from "react";
-import DropDown from "../../components/inputs/Dropdown";
+import DropDown from "../inputs/Dropdown";
 import { IListItem } from "../../interfaces/IListItem";
 import { CalculationRuleEnum } from "../../lib/enums/CalculationRuleEnum";
 import { LevelTypeEnum } from "../../lib/enums/LevelTypeEnum";
@@ -30,7 +30,7 @@ interface IProps {
   setCalculationRule?: (rule: number) => void;
 }
 
-const MathunitSettingsBar: React.FC<IProps> = (props) => {
+const UnitSettingsBar: React.FC<IProps> = (props) => {
   const {
     level,
     disabled,
@@ -123,4 +123,4 @@ const MathunitSettingsBar: React.FC<IProps> = (props) => {
   );
 };
 
-export default MathunitSettingsBar;
+export default UnitSettingsBar;
