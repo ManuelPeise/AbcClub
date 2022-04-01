@@ -21,6 +21,18 @@ namespace Businesslogic.Units
             _appDataContext = appDataContext;
         }
 
+        public async Task<List<CustomUnit>> GetAll()
+        {
+            try
+            {
+                return await Task.FromResult(_appDataContext.UnitStore.ToList());
+
+            }catch(Exception exception)
+            {
+                return new List<CustomUnit>();
+            }
+        }
+
         public async Task CreateOrUpdateUnit(CustomUnit unit)
         {
             try
