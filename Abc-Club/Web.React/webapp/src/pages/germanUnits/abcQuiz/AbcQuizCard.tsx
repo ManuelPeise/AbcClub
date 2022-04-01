@@ -30,7 +30,6 @@ interface IProps {
 const AbcQuizCard: React.FC<IProps> = (props) => {
   const { id, value, isReadonly, setValue } = props;
   const classes = styles();
-  const [readonly, setReadOnly] = React.useState<boolean>(isReadonly);
   const [open, setOpen] = React.useState<boolean>(false);
 
   const toggleOpen = React.useCallback(() => {
@@ -40,15 +39,16 @@ const AbcQuizCard: React.FC<IProps> = (props) => {
   const handleValue = React.useCallback(
     (value: string) => {
       setValue(value, id);
-      setReadOnly(true);
     },
     [setValue, id]
   );
 
+  console.log(isReadonly);
+
   return (
     <React.Fragment>
       <Paper
-        aria-disabled={!readonly}
+        aria-disabled={!isReadonly}
         className={classes.card}
         elevation={3}
         onClick={toggleOpen}
