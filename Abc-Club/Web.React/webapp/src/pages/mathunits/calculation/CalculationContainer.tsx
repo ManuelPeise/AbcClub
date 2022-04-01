@@ -1,8 +1,8 @@
 import React from "react";
-import MathunitContainer from "../MathUnitContainer";
+import UnitContainer from "../../../components/containers/UnitContainer";
 import ButtonGroup from "../../../components/inputs/ButtonGroup";
 import { ICalculationUnit } from "../../../interfaces/IUnitResponseModel";
-import MathunitSettingsBar from "../MathUnitSettingsBar";
+import UnitSettingsBar from "../../../components/settingBars/UnitSettingsBar";
 import { LevelTypeEnum } from "../../../lib/enums/LevelTypeEnum";
 import CalculationUnit from "./CalculationUnit";
 import { CalculationRuleEnum } from "../../../lib/enums/CalculationRuleEnum";
@@ -44,8 +44,8 @@ const CalculationContainer: React.FC<IProps> = (props) => {
 
   return (
     <React.Fragment>
-      <MathunitContainer title="Rechnen">
-        <MathunitSettingsBar
+      <UnitContainer title="Rechnen">
+        <UnitSettingsBar
           disabled={inProgress}
           level={level}
           hasCalculationRuleSelection={true}
@@ -67,7 +67,7 @@ const CalculationContainer: React.FC<IProps> = (props) => {
             })}
           </React.Fragment>
         )}
-      </MathunitContainer>
+      </UnitContainer>
       <ButtonGroup
         hasCancelBtn={true}
         hasSaveBtn={true}

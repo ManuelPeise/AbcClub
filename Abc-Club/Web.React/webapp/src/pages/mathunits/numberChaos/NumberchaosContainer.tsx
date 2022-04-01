@@ -1,10 +1,10 @@
 import React, { CSSProperties } from "react";
-import MathunitContainer from "../MathUnitContainer";
+import UnitContainer from "../../../components/containers/UnitContainer";
 import ButtonGroup from "../../../components/inputs/ButtonGroup";
 import { IUnitResponseModel } from "../../../interfaces/IUnitResponseModel";
 import DropContainer from "../../../components/dragNDrop/DropContainer";
 import { Grid } from "@material-ui/core";
-import MathunitSettingsBar from "../MathUnitSettingsBar";
+import UnitSettingsBar from "../../../components/settingBars/UnitSettingsBar";
 import { LevelTypeEnum } from "../../../lib/enums/LevelTypeEnum";
 import DraggableCard from "../../../components/dragNDrop/DaggableCard";
 import { INumberchaosUnitResult } from "../../../interfaces/IUnitResult";
@@ -96,8 +96,8 @@ const NumberchaosContainer: React.FC<IProps> = (props) => {
 
   return (
     <React.Fragment>
-      <MathunitContainer title="Zahlenchaos">
-        <MathunitSettingsBar
+      <UnitContainer title="Zahlenchaos">
+        <UnitSettingsBar
           disabled={inProgress}
           level={level}
           setLevel={handleLevelChanged}
@@ -119,7 +119,7 @@ const NumberchaosContainer: React.FC<IProps> = (props) => {
             saveResult={saveResult}
           />
         )}
-      </MathunitContainer>
+      </UnitContainer>
       <ButtonGroup
         hasCancelBtn={true}
         hasSaveBtn={true}

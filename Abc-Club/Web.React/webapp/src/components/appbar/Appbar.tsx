@@ -97,7 +97,10 @@ const AbcClubAppBar: React.FC<IProps> = (props) => {
         <Grid className={classes.container} container>
           <Grid className={classes.titleContainer} item xs={6}>
             <Grid container>
-              <IconButton onClick={toggleMenuOpen}>
+              <IconButton
+                disabled={userData.username === undefined}
+                onClick={toggleMenuOpen}
+              >
                 <Menu className={classes.icon} />
               </IconButton>
               <Link to="/" className={classes.link}>

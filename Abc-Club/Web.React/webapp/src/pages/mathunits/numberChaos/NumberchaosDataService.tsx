@@ -10,13 +10,13 @@ import {
   INumberchaosUnitResult,
   IUnitResult,
 } from "../../../interfaces/IUnitResult";
-import { useMathUnit } from "../../../hooks/useMathUnit";
+import { useUnit } from "../../../hooks/useUnit";
 
 const dropClassName = ".drop-item";
 const controller = apiConfig.baseUrl + apiConfig.math.unitController;
 
 const NumberchaosDataservice: React.FC = () => {
-  const mathUnitService = useMathUnit();
+  const mathUnitService = useUnit();
 
   const [result, setResult] = React.useState<INumberchaosUnitResult>(
     {} as INumberchaosUnitResult
