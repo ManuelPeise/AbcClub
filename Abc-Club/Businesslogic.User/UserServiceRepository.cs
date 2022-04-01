@@ -29,6 +29,10 @@ namespace Businesslogic.User
                     Name = x.Name,
                     Username = x.Username,
                     Firstname = x.Firstname,
+                    Email = x.Email,
+                    Password = x.Password,
+                    Salt = x.Salt,
+                    IsTeacher = x.IsTeacher
                 }).ToList();
 
                 //if (!users.Any())

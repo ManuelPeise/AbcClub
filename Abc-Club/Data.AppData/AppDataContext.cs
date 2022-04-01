@@ -8,5 +8,7 @@ namespace Data.AppData
         public AppDataContext(DbContextOptions<AppDataContext> options): base(options) {}
 
         public DbSet<UnitResult> UnitResults { get; set; }
+
+        public DbSet<CustomUnit> UnitStore { get; set; }
     }
 }

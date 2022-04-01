@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Web.Api.Helpers;
 
 namespace Web.Api
 {
@@ -41,6 +42,7 @@ namespace Web.Api
             services.AddScoped<IUserServiceRepository, UserServiceRepository>();
             services.AddScoped<UnitGenerator>();
             services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<IUnitCreatorRepository, UnitCreatorRepository>();
 
             services.AddCors(opt => {
                     opt.AddPolicy(_policy, x =>
@@ -65,9 +67,10 @@ namespace Web.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web.Api v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web.Api v1"));
 
             app.UseHttpsRedirection();
 
@@ -81,6 +84,8 @@ namespace Web.Api
             {
                 endpoints.MapControllers();
             });
+
+            MigrationHelper.TryMigrateDatabases(app);
         }
     }
 }
