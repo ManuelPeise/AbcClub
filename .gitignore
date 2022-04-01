@@ -395,3 +395,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Abc-Club/Web.Api/Properties/PublishProfiles/FolderProfile.pubxml.user
