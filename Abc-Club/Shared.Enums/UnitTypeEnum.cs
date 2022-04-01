@@ -4,6 +4,6 @@
     {
         NumberChaos = 0,
         Calculation = 1,
-        AbcQuiz = 2
+        AbcQuiz = 2,
     }
 }
